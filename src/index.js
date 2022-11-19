@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom/client";
-import NumbersShuffle from "./NumbersShuffle";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.querySelector(".root"));
-root.render(<NumbersShuffle rowLength={3} />);
+root.render(<App />);

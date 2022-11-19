@@ -1,3 +1,8 @@
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .box {
   width: 100px;
   height: 100px;
@@ -30,10 +35,25 @@
 }
 
 .white {
-    background-color: white;
-    cursor: default;
+  background-color: white;
+  cursor: default;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
+}
+.options-list {
+  display: flex;
+  list-style: none;
+}
+
+.options-list .option {
+  width: 100px;
+  cursor: pointer;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.options-list .option:hover {
+  background-color: #a0a0a0;
 }
