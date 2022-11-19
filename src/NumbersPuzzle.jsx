@@ -5,6 +5,7 @@ export default function NumbersPuzzle({ rowLength }) {
     ...Array.from({ length: numberOfSquares - 1 }, (_, i) => i + 1),
     0,
   ]);
+  const [numberOfPlays, setNumberOfPlays] = useState(0);
   const [solution, setSolution] = useState([]);
   const [solutionIndexes, setSolutionIndexes] = useState([]);
   const [originalArray, setOriginalArray] = useState([]);
@@ -53,6 +54,10 @@ export default function NumbersPuzzle({ rowLength }) {
       }, delay * i);
     });
   }
+  function resetGame() {
+    setNumberOfPlays(0);
+    setNumbersArray(originalArray);
+  }
   function swap(a, b, arr) {
     const aux = arr[a];
     arr[a] = arr[b];
@@ -68,6 +73,7 @@ export default function NumbersPuzzle({ rowLength }) {
   function clickHandler(x, y) {
     const index = x * rowLength + y;
     if (isClickable(index)) {
+      setNumberOfPlays((prevState) => prevState + 1);
       setNumbersArray((prevArrar) => {
         const aux = prevArrar.slice();
         const idx0 = aux.indexOf(0);
@@ -96,7 +102,6 @@ export default function NumbersPuzzle({ rowLength }) {
   }, []);
   return (
     <>
-      {solution.join(",")}
       <div
         className="container"
         style={{ height: rowLength * 100, width: rowLength * 100 }}
@@ -104,7 +109,9 @@ export default function NumbersPuzzle({ rowLength }) {
         {numbersArray.map((a, i) => (
           <div
             key={a}
-            onClick={() => clickHandler(Math.floor(i / rowLength), i % rowLength)}
+            onClick={() =>
+              clickHandler(Math.floor(i / rowLength), i % rowLength)
+            }
             className={`box ${a ? "green" : "white"} ${
               isClickable(i) ? "clickable" : null
             }`}
@@ -113,8 +120,12 @@ export default function NumbersPuzzle({ rowLength }) {
           </div>
         ))}
       </div>
-      <p>{isArraySorted(numbersArray) ? "Done 😎" : "..."}</p>
-      <button onClick={solveForMe}>Cheat</button>
+      <div>
+        <p>Plays: {numberOfPlays}</p>
+        <p>{isArraySorted(numbersArray) ? "Done 😎" : ""}</p>
+        <button onClick={solveForMe}>Solve for me</button>
+        <button onClick={resetGame}>Reset Game</button>
+      </div>
     </>
   );
 }
