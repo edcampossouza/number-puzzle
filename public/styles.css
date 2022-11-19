@@ -1,0 +1,39 @@
+.box {
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+  border: 5px solid black;
+  color: white;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  height: 300px;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  background-color: red;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+  cursor: default;
+}
+
+.white {
+    background-color: white;
+    cursor: default;
+}
+
+.clickable {
+    cursor: pointer;
+}
