@@ -7,11 +7,14 @@ export default function NumbersPuzzle() {
     0,
   ]);
   const [solution, setSolution] = useState([]);
+  const [solutionIndexes, setSolutionIndexes] = useState([]);
+  const [originalArray, setOriginalArray] = useState([]);
 
   function shuffle(n = 2 * options) {
     setNumbersArray((prevState) => {
       const newArray = prevState.slice();
       let solutionsAux = [];
+      let newSolutionsIndexes = [];
       let prevSolution = null;
       while (n) {
         const randomIndex = Math.round(Math.random() * options) % options;
@@ -21,13 +24,33 @@ export default function NumbersPuzzle() {
         ) {
           const idx0 = newArray.indexOf(0);
           solutionsAux = [newArray[randomIndex], ...solutionsAux];
+          newSolutionsIndexes = [idx0, ...newSolutionsIndexes];
           prevSolution = newArray[randomIndex];
           swap(idx0, randomIndex, newArray);
           n--;
         }
       }
+      setOriginalArray(newArray);
       setSolution(solutionsAux);
+      setSolutionIndexes(newSolutionsIndexes);
       return newArray;
+    });
+  }
+
+  function solveForMe() {
+    let delay = 500;
+    const solved = originalArray.slice();
+    const states = [solved.slice()];
+    solutionIndexes.forEach((index) => {
+      const idx0 = solved.indexOf(0);
+      swap(idx0, index, solved);
+      const state = solved.slice();
+      states.push(state);
+    });
+    states.forEach((state, i) => {
+      setTimeout(() => {
+        setNumbersArray(state);
+      }, delay * i);
     });
   }
   function swap(a, b, arr) {
@@ -91,6 +114,7 @@ export default function NumbersPuzzle() {
         ))}
       </div>
       <p>{isArraySorted(numbersArray) ? "Done 😎" : "..."}</p>
+      <button onClick={solveForMe}>Cheat</button>
     </>
   );
 }
