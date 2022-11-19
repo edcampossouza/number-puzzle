@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom/client";
 import NumbersShuffle from "./NumbersShuffle";
 
-
 const root = ReactDOM.createRoot(document.querySelector(".root"));
-root.render(<NumbersShuffle />)
+root.render(<NumbersShuffle rowLength={3} />);

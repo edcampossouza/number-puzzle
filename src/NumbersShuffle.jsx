@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
-const rowsize = 3;
-const options = rowsize * rowsize;
-export default function NumbersPuzzle() {
+export default function NumbersPuzzle({ rowLength }) {
+  const numberOfSquares = rowLength * rowLength;
   const [numbersArray, setNumbersArray] = useState([
-    ...Array.from({ length: options - 1 }, (_, i) => i + 1),
+    ...Array.from({ length: numberOfSquares - 1 }, (_, i) => i + 1),
     0,
   ]);
   const [solution, setSolution] = useState([]);
   const [solutionIndexes, setSolutionIndexes] = useState([]);
   const [originalArray, setOriginalArray] = useState([]);
 
-  function shuffle(n = 2 * options) {
+  function shuffle(n = 2 * numberOfSquares) {
     setNumbersArray((prevState) => {
       const newArray = prevState.slice();
       let solutionsAux = [];
       let newSolutionsIndexes = [];
       let prevSolution = null;
       while (n) {
-        const randomIndex = Math.round(Math.random() * options) % options;
+        const randomIndex =
+          Math.round(Math.random() * numberOfSquares) % numberOfSquares;
         if (
           isClickable(randomIndex, newArray) &&
           newArray[randomIndex] !== prevSolution
@@ -66,7 +66,7 @@ export default function NumbersPuzzle() {
     );
   }
   function clickHandler(x, y) {
-    const index = x * rowsize + y;
+    const index = x * rowLength + y;
     if (isClickable(index)) {
       setNumbersArray((prevArrar) => {
         const aux = prevArrar.slice();
@@ -83,11 +83,11 @@ export default function NumbersPuzzle() {
     );
   }
   function isClickable(i, arr = numbersArray) {
-    const x = Math.floor(i / rowsize);
-    const y = i % rowsize;
+    const x = Math.floor(i / rowLength);
+    const y = i % rowLength;
     const index0 = arr.indexOf(0);
-    const x0 = Math.floor(index0 / rowsize);
-    const y0 = index0 % rowsize;
+    const x0 = Math.floor(index0 / rowLength);
+    const y0 = index0 % rowLength;
 
     return isAdjacent(x0, y0, x, y);
   }
@@ -99,12 +99,12 @@ export default function NumbersPuzzle() {
       {solution.join(",")}
       <div
         className="container"
-        style={{ height: rowsize * 100, width: rowsize * 100 }}
+        style={{ height: rowLength * 100, width: rowLength * 100 }}
       >
         {numbersArray.map((a, i) => (
           <div
             key={a}
-            onClick={() => clickHandler(Math.floor(i / rowsize), i % rowsize)}
+            onClick={() => clickHandler(Math.floor(i / rowLength), i % rowLength)}
             className={`box ${a ? "green" : "white"} ${
               isClickable(i) ? "clickable" : null
             }`}
