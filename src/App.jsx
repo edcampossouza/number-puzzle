@@ -4,7 +4,7 @@ import NumbersPuzzle from "./NumbersPuzzle";
 function WelcomeComponent({ chooseOption, options }) {
   return (
     <>
-      <p>Choose the row length</p>
+      <p className="title">Choose the row length</p>
       <ul className="options-list">
         {options.map((op) => (
           <li className="option" onClick={() => chooseOption(op)}>

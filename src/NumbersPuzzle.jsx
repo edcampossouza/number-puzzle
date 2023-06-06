@@ -121,10 +121,14 @@ export default function NumbersPuzzle({ rowLength }) {
         ))}
       </div>
       <div>
-        <p>Plays: {numberOfPlays}</p>
-        <p>{isArraySorted(numbersArray) ? "Done 😎" : ""}</p>
-        <button onClick={solveForMe}>Solve for me</button>
-        <button onClick={resetGame}>Reset Game</button>
+        <p className="text">Plays: {numberOfPlays}</p>
+        <p className="text">{isArraySorted(numbersArray) ? "Done 😎" : ""}</p>
+        <button className="button" onClick={solveForMe}>
+          Solve for me
+        </button>
+        <button className="button" onClick={resetGame}>
+          Reset Game
+        </button>
       </div>
     </>
   );
